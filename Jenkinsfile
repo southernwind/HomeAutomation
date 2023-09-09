@@ -2,6 +2,10 @@ node {
   stage('CheckOut'){
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: false, recursiveSubmodules: true, reference: '', trackingSubmodules: false]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/southernwind/HomeAutomation']]])
   }
+  
+  stage('Configuration'){
+    configFileProvider([configFile(fileId: '626675d6-7479-4537-88d9-5dc14eb34765', targetLocation: 'HomeAutomation/appsettings.json')]) {}
+  }
 
   stage('Build HomeAutomation'){
     dotnetBuild configuration: 'Release', project: 'HomeAutomation.sln', sdk: '.NET7', unstableIfWarnings: true

@@ -1,0 +1,3 @@
+[submodule "Library/HomeDashboardBackend"]
+	path = Library/HomeDashboardBackend
+	url = https://github.com/southernwind/HomeDashboardBackend
