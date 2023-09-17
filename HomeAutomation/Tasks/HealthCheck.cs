@@ -56,8 +56,18 @@ public class HealthCheck : IAutomationTask
                 if ((CheckType)target.CheckType == CheckType.Ping)
                 {
                     var reply = await ping.SendPingAsync(target.Host);
-                    if ((reply.Status != IPStatus.Success) != target.State)
+                    var state = reply.Status != IPStatus.Success;
+                    if (state != target.State)
                     {
+                        if (state)
+                        {
+                            await Task.Delay(new TimeSpan(0, 1, 0));
+                            reply = await ping.SendPingAsync(target.Host);
+                            if(reply.Status == IPStatus.Success)
+                            {
+                                continue;
+                            }
+                        }
                         await slackClient.PostAsync(new SlackMessage { Text = $"Name:{target.Name} \nHost:{target.Host} \nReplyStatus:{reply.Status}({(int)reply.Status})", Username = "ヘルスチェッカー" });
 
                         this._dbContext.HealthCheckResults.Add(new HealthCheckResult()
