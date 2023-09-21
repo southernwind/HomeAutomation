@@ -1,20 +1,26 @@
-﻿using System.Net.NetworkInformation;
+﻿using Microsoft.Extensions.Logging;
+
+using System.Net.NetworkInformation;
 
 namespace HomeAutomation.Tasks;
 public class HueLightAutoOff : IAutomationTask
 {
-    public HueLightAutoOff()
-    {
+    private readonly ILogger<HueLightAutoOff> _logger;
 
+    public HueLightAutoOff(ILogger<HueLightAutoOff> logger)
+    {
+        this._logger = logger;
     }
 
     public async Task ExecuteAsync()
     {
+        this._logger.LogInformation($"Start");
         var ping = new Ping();
         var httpClient = new HttpClient();
         var content = new StringContent(@"{""on"":false}");
         while (true)
         {
+            this._logger.LogInformation($"Check");
             await Task.Delay(new TimeSpan(0, 0, 10));
             var reply = await ping.SendPingAsync("13700k.localnet");
             if (reply.Status != IPStatus.Success)

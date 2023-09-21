@@ -4,6 +4,7 @@ using DataBase;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 using Slack.Webhooks;
 
@@ -17,20 +18,24 @@ public class HealthCheck : IAutomationTask
         Ping = 0
     };
 
+    private readonly ILogger<HealthCheck> _logger;
     private readonly HomeServerDbContext _dbContext;
     private readonly string _healthCheckWebHookUrl;
-    public HealthCheck(HomeServerDbContext dbContext, IConfiguration configuration)
+    public HealthCheck(ILogger<HealthCheck> logger, HomeServerDbContext dbContext, IConfiguration configuration)
     {
+        this._logger = logger;
         this._dbContext = dbContext;
         this._healthCheckWebHookUrl = configuration.GetSection("WebHookUrl").GetSection("HealthCheckSlack").Get<string>();
     }
 
     public async Task ExecuteAsync()
     {
+        this._logger.LogInformation($"Start");
         var slackClient = new SlackClient(this._healthCheckWebHookUrl);
         var ping = new Ping();
         while (true)
         {
+            this._logger.LogInformation($"Check");
             var idList = from r in this._dbContext.HealthCheckResults
                          group r by r.HealthCheckTargetId into g
                          select g.Max(x => x.HealthCheckResultId);
