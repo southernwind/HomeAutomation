@@ -8,7 +8,7 @@ node {
   }
 
   stage('Build HomeAutomation'){
-    dotnetBuild configuration: 'Release', project: 'HomeAutomation.sln', sdk: '.NET7', unstableIfWarnings: true
+    dotnetBuild configuration: 'Release', project: 'HomeAutomation.sln', sdk: '.NET8', unstableIfWarnings: true
   }
 
   withCredentials( \
@@ -17,7 +17,7 @@ node {
         keyFileVariable: 'SSH_KEY', \
         usernameVariable: 'SSH_USER')]) {
     stage('Deploy HomeAutomation'){
-      sh 'scp -pr -i ${SSH_KEY} ./HomeAutomation/bin/Release/net7.0/* ${SSH_USER}@home-server.localnet:/opt/home-automation-service'
+      sh 'scp -pr -i ${SSH_KEY} ./HomeAutomation/bin/Release/net8.0/* ${SSH_USER}@home-server.localnet:/opt/home-automation-service'
     }
 
     stage('Restart HomeAutomation'){
