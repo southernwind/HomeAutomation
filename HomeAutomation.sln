@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Library\HomeDashboardBackend\Database\Database.csproj", "{4ABDEF76-5DB3-4732-8A5D-310D043998C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyForwardViewer.DataBase", "Library\HomeDashboardBackend\Library\MoneyForwardViewer\MoneyForwardViewer.DataBase\MoneyForwardViewer.DataBase.csproj", "{FE464DA1-D438-4077-911A-0EB5F763F216}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +30,6 @@ Global
 		{4ABDEF76-5DB3-4732-8A5D-310D043998C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ABDEF76-5DB3-4732-8A5D-310D043998C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ABDEF76-5DB3-4732-8A5D-310D043998C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE464DA1-D438-4077-911A-0EB5F763F216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE464DA1-D438-4077-911A-0EB5F763F216}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE464DA1-D438-4077-911A-0EB5F763F216}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE464DA1-D438-4077-911A-0EB5F763F216}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

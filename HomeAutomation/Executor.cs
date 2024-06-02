@@ -25,7 +25,7 @@ public class Executor
     {
         this._targets = serviceProvider.GetServices<IAutomationTask>();
         this._logger = logger;
-        this._errorNotifyWebHookUrl = configuration.GetSection("WebHookUrl").GetSection("ErrorSlack").Get<string>();
+        this._errorNotifyWebHookUrl = configuration.GetSection("WebHookUrl").GetRequiredSection("ErrorSlack").Get<string>()!;
     }
     public async Task StartAsync()
     {

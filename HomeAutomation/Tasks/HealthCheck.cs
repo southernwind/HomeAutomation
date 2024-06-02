@@ -25,7 +25,7 @@ public class HealthCheck : IAutomationTask
     {
         this._logger = logger;
         this._dbContext = dbContext;
-        this._healthCheckWebHookUrl = configuration.GetSection("WebHookUrl").GetSection("HealthCheckSlack").Get<string>();
+        this._healthCheckWebHookUrl = configuration.GetSection("WebHookUrl").GetRequiredSection("HealthCheckSlack").Get<string>()!;
     }
 
     public async Task ExecuteAsync()
