@@ -4,11 +4,11 @@ node {
   }
   
   stage('Configuration'){
-    configFileProvider([configFile(fileId: '626675d6-7479-4537-88d9-5dc14eb34765', targetLocation: 'HomeAutomation/appsettings.json')]) {}
+    configFileProvider([configFile(fileId: 'e9c00749-507b-44ed-8279-697fff8e451d', targetLocation: 'HomeAutomation/appsettings.json')]) {}
   }
 
   stage('Build HomeAutomation'){
-    dotnetBuild configuration: 'Release', project: 'HomeAutomation.sln', sdk: '.NET8', unstableIfWarnings: true
+    dotnetBuild configuration: 'Release', project: 'HomeAutomation.sln', sdk: '.NET10', unstableIfWarnings: true
   }
 
   withCredentials( \
@@ -17,7 +17,7 @@ node {
         keyFileVariable: 'SSH_KEY', \
         usernameVariable: 'SSH_USER')]) {
     stage('Deploy HomeAutomation'){
-      sh 'scp -pr -i ${SSH_KEY} ./HomeAutomation/bin/Release/net8.0/* ${SSH_USER}@home-server.localnet:/opt/home-automation-service'
+      sh 'scp -pr -i ${SSH_KEY} ./HomeAutomation/bin/Release/net10.0/* ${SSH_USER}@home-server.localnet:/opt/home-automation-service'
     }
 
     stage('Restart HomeAutomation'){

@@ -29,7 +29,7 @@ namespace ScrapingService
                 .AddScoped<IAutomationTask, HueLightAutoOff>()
                 .AddScoped<IAutomationTask, HealthCheck>()
                 .AddDbContext<HomeServerDbContext>(optionsBuilder => {
-                    optionsBuilder.UseMySql(configuration.GetConnectionString("Database"), ServerVersion.AutoDetect(configuration.GetConnectionString("Database")));
+                    optionsBuilder.UseNpgsql(configuration.GetConnectionString("Database"));
                 })
                 .AddScoped<Executor>()
                 .BuildServiceProvider();
